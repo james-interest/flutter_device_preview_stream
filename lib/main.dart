@@ -4,7 +4,7 @@ import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 void main() async {
   final client = StreamChatClient(
     '9e98aur7vpwy',
-    logLevel: Level.INFO,
+    logLevel: Level.OFF,
   );
 
   String userId = 'tutorial-flutter';
