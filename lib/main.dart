@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
@@ -17,10 +18,18 @@ void main() async {
 
   await channel.watch();
 
-  runApp(MyApp(
-    client: client,
-    channel: channel,
-  ));
+  runApp(
+    DevicePreview(
+      enabled: true,
+      tools: const [
+        ...DevicePreview.defaultTools,
+      ],
+      builder: (context) => MyApp(
+        client: client,
+        channel: channel,
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -38,7 +47,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
       builder: (context, widget) {
+        widget = DevicePreview.appBuilder(context, widget);
         return StreamChat(
           client: client,
           child: widget,
